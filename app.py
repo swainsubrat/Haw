@@ -5,8 +5,9 @@ from dash.dependencies import Input, Output, State
 
 import io
 import base64
-from Dependencies.PlotBuilder import FiguresPlotter
-from Dependencies.DataFrameBuilder import DataFrameBuilder
+from Dependencies.PlotBuilder import MessageFigurePlotter, EmojiFigurePlotter
+from Dependencies.DataFrameBuilder import (messageDataFrameBuilder,
+                                           emojiDataFrameBuilder)
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
@@ -17,21 +18,21 @@ colors = {
     'text': '#7FDBFF'
 }
 
+app.title = 'Haw 🤗'
+
 app.layout = html.Div([
     html.H1(
-        'HAWW',
+        'Haw',
         style={
             'textAlign': 'center',
-            # 'color': colors['text'],
             'font-weight': 'bold'
         }
     ),
 
     html.Div(
-        'Hawww: An Analytics Tool Made for WhatsApp Groups', 'value',
+        'Haw: Heavily Analysed Whatsapp texts', 'value',
         style={
             'textAlign': 'center',
-            # 'color': colors['text']
         }
     ),
 
@@ -43,34 +44,60 @@ app.layout = html.Div([
         style={'textAlign': 'center'}
     ),
 
-    html.Div(id='graph', children=[])
+    html.Div(id='graphm', children=[]),
+    html.Div(id='graphe', children=[])
 ])
 
 
-def parse_content(content, name, date):
+def parse_message(content, name, date):
     _, content_string = content.split(',')
     FILE_NAME = name
     decoded = base64.b64decode(content_string)
     f = io.StringIO(decoded.decode('utf-8'))
-    DF = DataFrameBuilder(FILE=f)
-    FIG = FiguresPlotter(DF=DF, group_name=FILE_NAME.split(".")[0])
+    DFM = messageDataFrameBuilder(FILE=f)
+    FIGM = MessageFigurePlotter(DFM=DFM, group_name=FILE_NAME.split(".")[0])
 
-    return FIG
+    return FIGM
 
 
-@app.callback(Output('graph', 'children'),
+def parse_emoji(content, name, date):
+    _, content_string = content.split(',')
+    FILE_NAME = name
+    decoded = base64.b64decode(content_string)
+    f = io.StringIO(decoded.decode('utf-8'))
+    DFE = emojiDataFrameBuilder(FILE=f)
+    FIGE = EmojiFigurePlotter(DFE=DFE, group_name=FILE_NAME.split(".")[0])
+
+    return FIGE
+
+
+@app.callback(Output('graphm', 'children'),
               [Input('upload-data', 'contents')],
               [State('upload-data', 'filename'),
                State('upload-data', 'last_modified')])
-def update_output(list_of_contents, list_of_names, list_of_dates):
+def update_message_plots(list_of_contents, list_of_names, list_of_dates):
     if list_of_contents is not None:
-        child = parse_content(
+        child = parse_message(
             content=list_of_contents,
             name=list_of_names,
             date=list_of_dates
         )
         return child['barm'], child['barD'], child['barY'],\
-            child['piem'], child['piee'], child['bare'], child['pieeg'],\
+            child['piem']
+
+
+@app.callback(Output('graphe', 'children'),
+              [Input('upload-data', 'contents')],
+              [State('upload-data', 'filename'),
+               State('upload-data', 'last_modified')])
+def update_emoji_plots(list_of_contents, list_of_names, list_of_dates):
+    if list_of_contents is not None:
+        child = parse_emoji(
+            content=list_of_contents,
+            name=list_of_names,
+            date=list_of_dates
+        )
+        return child['piee'], child['bare'], child['pieeg'],\
             child['bareg'], child['bareD'], child['bareY']
 
 

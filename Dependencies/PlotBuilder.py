@@ -17,9 +17,19 @@ def _wrapper(fig: Figure, id: str) -> Graph:
     )
 
 
-def FiguresPlotter(DF: dict, group_name: str) -> dict:
-    FIG = {}
-    instance = PlotlyViz(df=DF['dfm'])
+def MessageFigurePlotter(DFM: dict,
+                         group_name: str) -> dict:
+    """
+    Function to plot the plots for message statistics.
+
+    Args:
+        DFM(dict): Dict of dataframes containing message statistics.
+        group_name: WhatsApp group name.
+
+    Returns:
+        FIGM(dict(Figure)): Dictionary of Plotly's figure objects.
+    """
+    instance = PlotlyViz(df=DFM['dfm'])
     bar = instance.bar_plot(
         x='Name', y='Message Count',
         title='Message count of {}'.format(group_name),
@@ -34,7 +44,7 @@ def FiguresPlotter(DF: dict, group_name: str) -> dict:
     barm = _wrapper(fig=bar, id='figm')
     piem = _wrapper(fig=pie, id='piem')
 
-    instance = PlotlyViz(df=DF['dfmD'])
+    instance = PlotlyViz(df=DFM['dfmD'])
     bar = instance.bar_plot(
         x="Date", y="Count",
         title='Message count of {} group, (per day)'.format(group_name),
@@ -42,7 +52,7 @@ def FiguresPlotter(DF: dict, group_name: str) -> dict:
     )
     barD = _wrapper(fig=bar, id='barD')
 
-    instance = PlotlyViz(df=DF['dfmMY'])
+    instance = PlotlyViz(df=DFM['dfmMY'])
     bar = instance.bar_plot(
         x="Month_Year", y="Count",
         title='Message count of {} group, (per day)'.format(group_name),
@@ -50,7 +60,7 @@ def FiguresPlotter(DF: dict, group_name: str) -> dict:
     )
     barMY = _wrapper(fig=bar, id='barMY')
 
-    instance = PlotlyViz(df=DF['dfmY'])
+    instance = PlotlyViz(df=DFM['dfmY'])
     bar = instance.bar_plot(
         x="Year", y="Count",
         title='Message count of {} group, (per day)'.format(group_name),
@@ -58,7 +68,30 @@ def FiguresPlotter(DF: dict, group_name: str) -> dict:
     )
     barY = _wrapper(fig=bar, id='barY')
 
-    instance = PlotlyViz(df=DF['dfe'])
+    FIGM = {
+        "barm": barm,
+        "piem": piem,
+        "barD": barD,
+        "barMY": barMY,
+        "barY": barY
+    }
+
+    return FIGM
+
+
+def EmojiFigurePlotter(DFE: dict,
+                       group_name: str) -> dict:
+    """
+    Function to plot the plots for emojis statistics.
+
+    Args:
+        DFM(dict): Dict of dataframes containing emojis statistics.
+        group_name: WhatsApp group name.
+
+    Returns:
+        FIGM(dict(Figure)): Dictionary of Plotly's figure objects.
+    """
+    instance = PlotlyViz(df=DFE['dfe'])
     bar = instance.bar_plot(
         x='Emojis', y='Count',
         title='Emoji count of {}'.format(group_name),
@@ -73,7 +106,7 @@ def FiguresPlotter(DF: dict, group_name: str) -> dict:
     bare = _wrapper(fig=bar, id='bare')
     piee = _wrapper(fig=pie, id='piee')
 
-    instance = PlotlyViz(df=DF['dfeg'])
+    instance = PlotlyViz(df=DFE['dfeg'])
     bar = instance.bar_plot(
         x='Name', y='Count',
         title='Emoji count of {}'.format(group_name),
@@ -88,7 +121,7 @@ def FiguresPlotter(DF: dict, group_name: str) -> dict:
     bareg = _wrapper(fig=bar, id='bareg')
     pieeg = _wrapper(fig=pie, id='pieeg')
 
-    instance = PlotlyViz(df=DF['dfeD'])
+    instance = PlotlyViz(df=DFE['dfeD'])
     bar = instance.bar_plot(
         x="Date", y="Count",
         title='Emoji count of {} group, (per day)'.format(group_name),
@@ -96,7 +129,7 @@ def FiguresPlotter(DF: dict, group_name: str) -> dict:
     )
     bareD = _wrapper(fig=bar, id='bareD')
 
-    instance = PlotlyViz(df=DF['dfeMY'])
+    instance = PlotlyViz(df=DFE['dfeMY'])
     bar = instance.bar_plot(
         x="Month_Year", y="Count",
         title='Emoji count of {} group, (per day)'.format(group_name),
@@ -104,7 +137,7 @@ def FiguresPlotter(DF: dict, group_name: str) -> dict:
     )
     bareMY = _wrapper(fig=bar, id='bareMY')
 
-    instance = PlotlyViz(df=DF['dfeY'])
+    instance = PlotlyViz(df=DFE['dfeY'])
     bar = instance.bar_plot(
         x="Year", y="Count",
         title='Emoji count of {} group, (per day)'.format(group_name),
@@ -113,10 +146,14 @@ def FiguresPlotter(DF: dict, group_name: str) -> dict:
 
     bareY = _wrapper(fig=bar, id='bareY')
 
-    FIG['barm'], FIG['barD'], FIG['barMY'], FIG['barY'] =\
-        barm, barD, barMY, barY
-    FIG['piem'], FIG['piee'], FIG['pieeg'] = piem, piee, pieeg
-    FIG['bare'], FIG['bareg'], FIG['bareD'], FIG['bareMY'], FIG['bareY'] =\
-        bare, bareg, bareD, bareMY, bareY
+    FIGE = {
+        "bare": bare,
+        "piee": piee,
+        "bareg": bareg,
+        "pieeg": pieeg,
+        "bareD": bareD,
+        "bareMY": bareMY,
+        "bareY": bareY
+    }
 
-    return FIG
+    return FIGE
