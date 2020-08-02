@@ -80,16 +80,16 @@ def messageDataFrameBuilder(FILE: StringIO,
         ascending=False,
         inplace=True,
         ignore_index=True)
-    dfmD = df.groupby('Date').Message.count().\
-        reset_index(name='Count')
-    dfmMY = df.groupby('Month_Year').Message.count().\
-        reset_index(name='Count')
+    # dfmD = df.groupby('Date').Message.count().\
+    #     reset_index(name='Count')
+    # dfmMY = df.groupby('Month_Year').Message.count().\
+    #     reset_index(name='Count')
     dfmY = df.groupby('Year').Message.count().\
         reset_index(name='Count')
     DFM = {
         "dfm": dfm,
-        "dfmD": dfmD,
-        "dfmMY": dfmMY,
+        # "dfmD": dfmD,
+        # "dfmMY": dfmMY,
         "dfmY": dfmY
     }
     return DFM
@@ -139,10 +139,10 @@ def emojiDataFrameBuilder(FILE: StringIO,
     dfe.loc[dfe.index >= TOP, 'Emojis'] = 'Others'
     dfe = dfe.groupby("Emojis")["Count"].sum().reset_index(name="Count")
     df.insert(loc=6, column='Emoji Count', value=emoji_cnt)
-    dfeD = df.groupby('Date')['Emoji Count'].sum().\
-        reset_index(name='Count')
-    dfeMY = df.groupby('Month_Year')['Emoji Count'].sum().\
-        reset_index(name='Count')
+    # dfeD = df.groupby('Date')['Emoji Count'].sum().\
+    #     reset_index(name='Count')
+    # dfeMY = df.groupby('Month_Year')['Emoji Count'].sum().\
+    #     reset_index(name='Count')
     dfeY = df.groupby('Year')['Emoji Count'].sum().\
         reset_index(name='Count')
 
@@ -160,8 +160,8 @@ def emojiDataFrameBuilder(FILE: StringIO,
     DFE = {
         "dfe": dfe,
         "dfeg": dfeg,
-        "dfeD": dfeD,
-        "dfeMY": dfeMY,
+        # "dfeD": dfeD,
+        # "dfeMY": dfeMY,
         "dfeY": dfeY
     }
 

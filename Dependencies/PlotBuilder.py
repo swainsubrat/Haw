@@ -44,21 +44,21 @@ def MessageFigurePlotter(DFM: dict,
     barm = _wrapper(fig=bar, id='figm')
     piem = _wrapper(fig=pie, id='piem')
 
-    instance = PlotlyViz(df=DFM['dfmD'])
-    bar = instance.bar_plot(
-        x="Date", y="Count",
-        title='Message count of {} group, (per day)'.format(group_name),
-        text='Count'
-    )
-    barD = _wrapper(fig=bar, id='barD')
+    # instance = PlotlyViz(df=DFM['dfmD'])
+    # bar = instance.bar_plot(
+    #     x="Date", y="Count",
+    #     title='Message count of {} group, (per day)'.format(group_name),
+    #     text='Count'
+    # )
+    # barD = _wrapper(fig=bar, id='barD')
 
-    instance = PlotlyViz(df=DFM['dfmMY'])
-    bar = instance.bar_plot(
-        x="Month_Year", y="Count",
-        title='Message count of {} group, (per day)'.format(group_name),
-        text='Count'
-    )
-    barMY = _wrapper(fig=bar, id='barMY')
+    # instance = PlotlyViz(df=DFM['dfmMY'])
+    # bar = instance.bar_plot(
+    #     x="Month_Year", y="Count",
+    #     title='Message count of {} group, (per day)'.format(group_name),
+    #     text='Count'
+    # )
+    # barMY = _wrapper(fig=bar, id='barMY')
 
     instance = PlotlyViz(df=DFM['dfmY'])
     bar = instance.bar_plot(
@@ -71,8 +71,8 @@ def MessageFigurePlotter(DFM: dict,
     FIGM = {
         "barm": barm,
         "piem": piem,
-        "barD": barD,
-        "barMY": barMY,
+        # "barD": barD,
+        # "barMY": barMY,
         "barY": barY
     }
 
@@ -121,21 +121,21 @@ def EmojiFigurePlotter(DFE: dict,
     bareg = _wrapper(fig=bar, id='bareg')
     pieeg = _wrapper(fig=pie, id='pieeg')
 
-    instance = PlotlyViz(df=DFE['dfeD'])
-    bar = instance.bar_plot(
-        x="Date", y="Count",
-        title='Emoji count of {} group, (per day)'.format(group_name),
-        text='Count'
-    )
-    bareD = _wrapper(fig=bar, id='bareD')
+    # instance = PlotlyViz(df=DFE['dfeD'])
+    # bar = instance.bar_plot(
+    #     x="Date", y="Count",
+    #     title='Emoji count of {} group, (per day)'.format(group_name),
+    #     text='Count'
+    # )
+    # bareD = _wrapper(fig=bar, id='bareD')
 
-    instance = PlotlyViz(df=DFE['dfeMY'])
-    bar = instance.bar_plot(
-        x="Month_Year", y="Count",
-        title='Emoji count of {} group, (per day)'.format(group_name),
-        text='Count'
-    )
-    bareMY = _wrapper(fig=bar, id='bareMY')
+    # instance = PlotlyViz(df=DFE['dfeMY'])
+    # bar = instance.bar_plot(
+    #     x="Month_Year", y="Count",
+    #     title='Emoji count of {} group, (per day)'.format(group_name),
+    #     text='Count'
+    # )
+    # bareMY = _wrapper(fig=bar, id='bareMY')
 
     instance = PlotlyViz(df=DFE['dfeY'])
     bar = instance.bar_plot(
@@ -151,8 +151,8 @@ def EmojiFigurePlotter(DFE: dict,
         "piee": piee,
         "bareg": bareg,
         "pieeg": pieeg,
-        "bareD": bareD,
-        "bareMY": bareMY,
+        # "bareD": bareD,
+        # "bareMY": bareMY,
         "bareY": bareY
     }
 
