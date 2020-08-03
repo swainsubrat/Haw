@@ -104,4 +104,4 @@ def update_emoji_plots(list_of_contents, list_of_names, list_of_dates):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(host='0.0.0.0', port=5000, debug=True)
