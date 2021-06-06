@@ -24,7 +24,7 @@ def basicDataFrameBuilder(FILE: StringIO) -> DataFrame:
     list_df = []
     for line in lines:
         line = line.rstrip('\n').split(" - ")
-        if re.search(r"\d\d\/\d\d\/\d\d, (\d\d|\d):\d\d (pm|am)", line[0]):
+        if re.search(r"\d\d\/\d\d\/\d\d\d\d, (\d\d|\d):\d\d", line[0]):
             name_message = line[1].split(": ")
             if len(name_message) <= 1:
                 continue
@@ -35,8 +35,11 @@ def basicDataFrameBuilder(FILE: StringIO) -> DataFrame:
                 message += name_message[i]
             list_df.append([date, time, name, message])
         else:
-            for item in line:
-                list_df[-1][-1] += item
+            try:
+                for item in line:
+                    list_df[-1][-1] += item
+            except Exception as e:
+                print("Exception:", e)
 
     df = DataFrame(list_df, columns=['Date', 'Time', 'Name', 'Message'])
     df['Day'] = pd.DatetimeIndex(df['Date']).day

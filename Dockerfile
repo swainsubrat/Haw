@@ -5,8 +5,9 @@ WORKDIR /app
 
 RUN pip install -r requirements.txt
 
-COPY . /app
+COPY . .
 
 EXPOSE 5000
-ENTRYPOINT [ "python" ]
+
+ENTRYPOINT [ "python3" ]
 CMD [ "app.py" ]
